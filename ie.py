@@ -26,8 +26,10 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(1, weight=0, minsize=200)
 
 
-        input_image = Image.open("1.JPG")
+        input_image = Image.open("image.JPG")
         self.photoname = "image.JPG"
+        
+        
         def fileopen():
             self.filename= filedialog.askopenfilename(initialdir="/", 
                                                  title="Select a image",
@@ -35,7 +37,8 @@ class App(customtkinter.CTk):
                                                                "*.jpg"),
                                                               ("all files",
                                                                "*.*")))
-            
+            if  self.filename == "":
+                self.filename = "image.JPG" 
             self.photoname = self.filename
             self.img = (Image.open(self.filename))
             #resize image using resize method
@@ -43,6 +46,9 @@ class App(customtkinter.CTk):
             self.resized=ImageTk.PhotoImage(self.resized)
             self.label1.configure(image=self.resized)
             
+            
+        def fileprint():
+            print(self.photoname)
             
         
         def blur():
@@ -81,6 +87,7 @@ class App(customtkinter.CTk):
 
 
         def default_img():
+            
             
             self.img = (Image.open(self.photoname))
             #resize image using resize method
@@ -124,6 +131,13 @@ class App(customtkinter.CTk):
                                            )
         button_0.grid(row=0, column=1)
         
+        button_4 = customtkinter.CTkButton(master=self.frame_down,
+                                           text="print file name", 
+                                           padx=5, pady=0, corner_radius=0,
+                                           command=fileprint
+                                           )
+        button_4.grid(row=0, column=2)
+        
         button_1 = customtkinter.CTkButton(master=self.frame_down,
                                               text="Blur", padx=5, pady=5,
                                               corner_radius=0,
@@ -146,6 +160,7 @@ class App(customtkinter.CTk):
                                            command=default_img)
         button_3.grid(row=2, column=0)
         
+
         
         
         
